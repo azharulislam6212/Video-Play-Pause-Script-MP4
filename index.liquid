@@ -1,0 +1,102 @@
+
+        <div class="video__item">
+          <div class="video__tiktok">
+            <img src="{{'video-tiktok.png' | asset_url }}" alt="">
+          </div>
+          {% comment %} <img src="{{ block.settings.img | img_url: 'master' }}" alt=""> {% endcomment %}
+
+          <video class="videoItem"  poster="{{ block.settings.img | img_url: 'master' }}" __idm_id__="{{ forloop.index }}" data-video="0" playsinline>
+            <source src="{{ block.settings.video }}" type="video/mp4">
+        </video>
+          <a href="javascript:void(0)"
+            class="video__play-bnt"
+            id="myBtn"
+            data-id="{{ forloop.index }}">
+            <img src="{{'video-play.svg' | asset_url }}" alt="">
+          </a>
+
+        </div>
+
+<style>
+
+.video__item {
+  position: relative;
+}
+
+.video__tiktok {
+  position: absolute;
+  top: 26px;
+  left: 17px;
+}
+
+.videoItem {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 406/720;
+  cursor: pointer;
+}
+
+.video__play-bnt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  cursor: pointer;
+}
+
+.video__item img {
+  width: 100%;
+}
+
+video {
+  left: -16%;
+}
+
+.modal-content__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+video::-webkit-media-controls {
+  display: none;
+}
+
+
+.video__item.active .video__play-bnt{
+  display: none;
+}
+
+</style>
+
+<script>
+
+$(document).ready(function(){
+  
+  $('.video__item').on('click', function(){
+ 
+    if($(this).hasClass('active')){
+     $(this).find("video").get(0).pause();
+     $(this).removeClass('active');
+    }else{
+ 
+     if ($(".video__item.active")) {
+       $(".video__item.active").find("video").each(function( index ) {
+        $(this).get(0).pause();
+       });
+       $(".video__item.active").removeClass("active")
+   }
+
+     $(this).find("video").get(0).play();
+     $(this).addClass("active");
+    }
+ 
+ });
+ 
+});
+</script>
